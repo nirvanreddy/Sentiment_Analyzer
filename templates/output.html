@@ -1,0 +1,65 @@
+{% load static %}
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Sentimental Analysis</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css'%}">
+</head>
+
+<body>
+  <div class="div-categ ">
+    <div class="catg-box">
+      <img class="catg-img" src="{%static 'hashtag.png '  %}">
+      <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Hashtag: {{ht}}</h1>
+    </div>
+    <div class="catg-box">
+      <img class="catg-img" src="{%static 'library.png '  %}">
+      <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Library: {{ans}}</h1>
+    </div>
+    <div class="catg-box">
+      <img class="catg-img" src="{%static 'accuracy.png '  %}">
+      <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Accuracy: {{accuracy}}</h1>
+    </div>
+    <div class="catg-box ">
+      <img class="catg-img" src="{%static 'positive.png'  %}">
+      <h1 class="content-h3 cent curpoi tebold" onclick="location.href='#'">Positive : {{pt1}}%</h1>
+    </div>
+    <div class="catg-box">
+      <img class="catg-img" src="{%static 'negative.png'   %}">
+      <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Negative : {{nt1}}%</h1>
+    </div>
+    <div class="catg-box">
+      <img class="catg-img" src="{%static 'neutral.png '  %}">
+      <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Neutral : {{neut1}}%</h1>
+    </div>
+  </div>
+  <div class="table">
+    {% for tweet in dsp_tweets %}
+    <div class="thead">
+      <h1 class="content-p telight">Tweet:{{ tweet.tweet }} </h1>
+      <h1 class="content-p telight">Analysis:{{ tweet.T_Analysis}} </h1>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="btns">
+    <div class="out-btn">
+      <div class="btn-1">
+        <a href="{% url 'index' %}" class="card_button" target="_self">Analyse Again</a>
+      </div>
+    </div>
+    <div class="out-btn">
+      <div class="btn-1">
+        <a href="{% url 'download_csv' %}" class="card_button">Download CSV</a>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

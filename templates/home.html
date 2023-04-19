@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Sentimental Analysis</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <script src="https://kit.fontawesome.com/b8be333c62.js" crossorigin="anonymous" defer></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <script>
+        function validateform() {
+            var name = document.contactform.name.value;
+            var subject = document.contactform.subject.value;
+            var mail = document.contactform.mail.value;
+            var atposition = mail.indexOf("@ ");
+            var dotposition = mail.lastIndexOf(". ");
+
+            if (name == null || name == " ") {
+                alert("Name can 't be blank");
+                return false;
+            } else if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= x.length) {
+                alert("Please enter a valid e-mail address");
+                return false;
+            } else if (subject == null || subject == "") {
+                alert("Subject can't be blank ");
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="nav" style="background-color :#000000;">
+        <p>Social Media Sentimental Analysis</p>
+    </div>
+
+    <div id="sli_form">
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img class="sli-lan" src="{% static 'sen_c1.png' %}"
+                    style="width:100%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            </div>
+            <div class="mySlides fade">
+                <img class="sli-lan" src="{%static 'sen_c2.png '  %}" style="width:100%"
+                    style="width:100%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            </div>
+            <div class="mySlides fade">
+                <img class="sli-lan" src="{%static 'sen_c3.png '  %}" style="width:100%"
+                    style="width:100%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            </div>
+        </div>
+        <div class="search-container">
+            <div class="switch">
+                <div class="twitter" onclick="p1change()" style="color: #ffffff;">Tweets</div>
+                <div class="facebook" onclick="p2change()" style="color: #000000;">FB-Comments</div>
+            </div>
+            <div id="page1" class="tcard">
+                <form id="form" class="tcard_form" method="POST" action="analyze">
+                    <h1 class="tcard_title">Analyze the Tweets</h1>
+                    {% csrf_token %}
+                    <div class="f-input_container">
+                        <input type="text" name="Hashtag" class="f-input" required />
+                        <label id="hash" for="" class="f-label">Enter the Hashtag</label>
+                    </div>
+                    <button type="submit" class="card_button" value="Analyse Tweets">Analyse Tweets</button>
+                </form>
+            </div>
+            <div id="page2" class="tcard" style="display: none;">
+                <form id="form" class="tcard_form" method="POST" action="upload" enctype="multipart/form-data">
+                    <h1 class="tcard_title">Analyze the FB-Comments</h1>
+                    {% csrf_token %}
+                    <div class="c-input_container">
+                        <input type="file" name="csv_file" class="c-input"  required />
+                    </div>
+                    <button type="submit" class="card_button" value="Analyse Comments">Analyse Comments</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="div-categ fir-mai">
+        <div class="catg-box ">
+            <img class="catg-img" src="{%static 'search.png'  %}">
+            <h1 class="content-h3 cent curpoi tebold" onclick="location.href='#'">Search</h1>
+            <h1 class="content-p telight">Search for a keywordthat would like to analyse</h1>
+        </div>
+        <div class="catg-box">
+            <img class="catg-img" src="{%static 'analyze (2).png'   %}">
+            <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Analyse</h1>
+            <h1 class="content-p telight">Tweets will be returned as positive,negative or neutral</h1>
+        </div>
+        <div class="catg-box">
+            <img class="catg-img" src="{%static 'down.png '  %}">
+            <h1 class="content-h3  curpoi tebold" onclick="location.href='#'">Download</h1>
+            <h1 class="content-p telight">Download the loaded CSV</h1>
+        </div>
+    </div>
+    <div class="fir-mai div-quote">
+        <main>
+            <h1 class="content-h3 cblack2 tecenter">A place for Sentiment Analysis</h1>
+            <h1 class="content-h2 cblack2 tecenter tebold">Our goal</h1>
+            <h1 class="content-h3 cblack2 tecenter">In this minor project, we aim to perform sentiment analysis on
+                social media posts related to a specific topic or event. We will use natural language processing
+                techniques to analyze the sentiment of the posts .</h1>
+        </main>
+    </div>
+    <main class="div-margin-bot">
+        <div class="flex-row">
+            <h1 class="dis-inli tebold content-h2">Programming Languages</h1>
+        </div>
+        <div class="div-comp">
+            <div class="comp-box"><img src="{%static 'python.png '   %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'django.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'html.jpg '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'css.jpg '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'js.png '   %}" alt=""></div>
+        </div>
+        <br><br>
+        <div class="thi-lin">
+            <div></div>
+        </div>
+        <br><br><br>
+        <div class="flex-row">
+            <h1 class="dis-inli tebold content-h2">Libraries</h1>
+        </div>
+        <div class="div-comp">
+            <div class="comp-box"><img src="{%static 'numpy.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'pandas.jpg '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'textblob.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'twint.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'nltk.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'flair.png '  %}" alt=""></div>
+        </div>
+        <br><br>
+        <div class="thi-lin">
+            <div></div>
+        </div>
+        <br><br><br>
+        <div class="flex-row">
+            <h1 class="dis-inli tebold content-h2">Resources</h1>
+        </div>
+        <div class="div-comp">
+            <div class="comp-box"><img src="{%static 'youtube.jpg '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'geeks.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'kaggle.png '  %}" alt=""></div>
+            <div class="comp-box"><img src="{%static 'stake.jpg '  %}" alt=""></div>
+        </div>
+        <br><br>
+    </main>
+    <main class="div-margin-bot">
+        <div class="bcli-white-2">
+            <div>
+                <h1 class="bcorange-2 cwhite1 tehv-pad content-h2">About</h1>
+            </div>
+            <div class="grp-abt">
+                <div class="abt-nam">
+                    <img src="{%static 'rohit.jpeg '   %}" alt="">
+                    <h1 class="content-h3 tecenter">Koppula Rohith</h1>
+                    <h1 class="content-p">20U02004</h1>
+                </div>
+                <div class="abt-nam">
+                    <img src="{%static 'nirvan.jpeg '  %}" alt="">
+                    <h1 class="content-h3 tecenter">B Nirvan Reddy</h1>
+                    <h1 class="content-p">20U02009</h1>
+                </div>
+                <div class="abt-nam">
+                    <img src="{%static 'lal.jpeg '  %}" alt="">
+                    <h1 class="content-h3 tecenter">Nenavath LalSingh</h1>
+                    <h1 class="content-p">20U02036</h1>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="abt-deta">
+                    <h1 class="content-p">We have developed this sentiment analyzer to recognize the sentiment of
+                        Hashtag that is running at the current state</h1>
+                    <h1 class="content-p">We shared the development of project between us.We have gathered all the
+                        knowledge and techniques in developing this project</h1>
+                    <h1 class="content-p">Rohith : Has done the work of integrating html forms to django views and also
+                        helped in designing the webpage</h1>
+                    <h1 class="content-p">Nirvan : Has done the working model for this project.Worked on python code and
+                        integration and some parts of the design.</h1>
+                    <h1 class="content-p">Lal Singh : Has done the Design for this project.Designed the templates in the
+                        best possible way.</h1>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--<main class="fir-mai">
+        <div class="bcli-white-2">
+            <div>
+                <h1 class="bcorange-2 cwhite1  tehv-pad tecenter content-h2">Map</h1>
+            </div>
+            <div class="div-map">
+            </div>
+        </div>
+    </main>-->
+
+    <script>
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (10 < currentScrollPos) {
+                document.getElementById("nav").style.backgroundColor = "#000000";
+                document.getElementById("nav").style.color = "#ffffff";
+            } else {
+                document.getElementById("nav").style.backgroundColor = "transparent";
+                document.getElementById("nav").style.color = "#000000";
+            }
+        }
+
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        var interval = setInterval(function () {
+            plusSlides(1);
+        }, 6500);
+
+        function clickSlides(n) {
+            showSlides(slideIndex += n);
+            clearInterval(interval);
+            interval = setInterval(function () {
+                plusSlides(1);
+            }, 6500);
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+        function n() {
+            var dis = document.getElementsByClassName("opt");
+            var x = document.getElementById("dot2").checked;
+            if (x == true) {
+                dis[0].classList.remove("disnon");
+                dis[0].classList.add("disblo");
+            } else {
+                dis[0].classList.remove("disblo");
+                dis[0].classList.add("disnon");
+            }
+        }
+
+        const p1 = document.getElementById("page1");
+        const p2 = document.getElementById("page2");
+        const tt = document.querySelector(".twitter");
+        const fb = document.querySelector(".facebook");
+        const switchs = document.querySelectorAll(".switch");
+
+        let current = 1;
+        function p1change() {
+            p2.style.display = "none";
+            p1.style.display = "block";
+            fb.style.background = "none";
+            fb.style.color = "#000000";
+            tt.style.color = "#ffffff";
+            tt.style.background = " #00ACEE";
+            switchs[current - 1].classList.remove("active");
+        }
+
+        function p2change() {
+            p1.style.display = "none";
+            p2.style.display = "block";
+            tt.style.background = "none";
+            tt.style.color = "#000000";
+            fb.style.color = "#ffffff";
+            fb.style.background = " #00ACEE";
+            switchs[current - 1].classList.add("active");
+        }
+    </script>
+
+</body>
+
+</html>
